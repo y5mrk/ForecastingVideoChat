@@ -1,0 +1,90 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>チャット画面</title>
+    <link rel="stylesheet" type="text/css" href="../style/weatherstyle.css">
+    <script src="lib/jquery-2.1.1.min.js"></script>
+    <script>
+      $(function(){
+        var wdata = [];
+        function Weather( lat, lon ){
+          var reqURL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
+          var option = "";
+          option += "lat=" + lat + "&lon="+ lon + "&mode=json&cnt=14";
+          $.ajax({
+            url: reqURL + option,
+            dataType: "jsonp",
+            success: function(data){
+              console.log(data);
+              for( var i = 0; i < data.list.length; i++ ){
+                //$('#results').append( data.list[i].weather[0].description +"<br>");
+                wdata[i] = data.list[i].weather[0].description;
+                //$('#results').append(wdata[i]);
+              }
+            }
+          });
+        }
+        function send(){//
+          $.ajax({
+            type: "POST",
+            url: "write.php",//write.phpに送信
+            data:{
+              'weather[]': wdata
+            }
+          });
+        }
+        
+        window.onload = function(){
+          navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+          function successCallback( position ){
+            Weather( position.coords.latitude, position.coords.longitude );
+          }
+          function errorCallback( error ){ console.log("error")}
+        }
+      });
+      
+	    var xmlHttp;
+
+		function loadText(){
+		  if (window.XMLHttpRequest){
+		    xmlHttp = new XMLHttpRequest();
+		  }else{
+		    if (window.ActiveXObject){
+		      xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+		    }else{
+		      xmlHttp = null;
+		    }
+		  }
+		  xmlHttp.onreadystatechange = checkStatus;
+		  xmlHttp.open("GET", "chat.txt", true);
+
+		  xmlHttp.send(null);
+		}
+
+		function checkStatus(){
+		  if (xmlHttp.readyState == 4 && xmlHttp.status == 200){
+		    var node = document.getElementById("results");
+		    node.innerHTML = xmlHttp.responseText;
+		  }
+		}
+		
+		function changeImg(){
+			location.reload();
+		}
+    </script>
+  </head>
+  <body>
+    <img src="../style/rogo.png" class="rogo">
+    <p> <br></p>
+    <h1>チャット画面</h1>
+	<form>
+	<input type="button" value="更新" onClick="loadText()">
+	</form>
+    <div id="results" onLoad="setInterval('changeImg()',1)"></div>
+    <p style=""> <br><br></p>
+    <form action=../login/logout.php method=get>
+       <input type="hidden" name="flag" value="logout"/>
+       <input type ="submit" value="ログアウト"/>
+    </form>
+  </body>
+</html>

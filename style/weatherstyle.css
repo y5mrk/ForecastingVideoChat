@@ -1,0 +1,60 @@
+body{
+  background:url(headimage.jpg) no-repeat center top;
+  color:#000;
+	text-align:center;
+  background-color:#c9d8f9;
+  background-size: 80%;
+}
+
+h1{
+  font-size:30px;
+  padding:0px 30px;
+}
+
+#results {
+  font-size:30px;
+  padding:10px 30px;
+	position: relative;
+	display: inline-block;
+	width: auto;
+  height: auto;
+	min-width: 115px;
+	color: #F6F6F6;
+	line-height: 50px;
+	text-align: center;
+	background: #19283C;
+	border-radius: 40px;
+}
+#results:before {
+	content: "";
+	position: absolute;
+	bottom: -17px; right: 15px;
+	margin-right: 0;
+	display: block;
+	width: 15px;
+	height: 15px;
+	background: #19283C;
+	border-radius: 50%;
+	z-index: 0;
+}
+#results:after {
+	content: "";
+	position: absolute;
+	bottom: -25px; right: 25px;
+	margin-right: 0;
+	display: block;
+	width: 8px;
+	height: 8px;
+	background: #19283C;
+	border-radius: 50%;
+	z-index: 0;
+}
+
+
+.rogo{
+  width: 200px;
+  height: 200px;
+  position:fixed;
+  bottom:0px;
+  left:0px
+}

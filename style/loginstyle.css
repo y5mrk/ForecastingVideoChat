@@ -1,0 +1,23 @@
+body{
+  background:url(../style/headimage.jpg) no-repeat center top;
+  color:#000;
+	text-align:center;
+  background-color:#c9d8f9;
+  background-size: 80%;
+}
+
+h1{
+  font-size: 30px;
+  padding:10px 30px;
+}
+
+p{
+
+}
+
+#login{
+  background-color:#fff;
+  margin:10px 500px;
+  padding:10px;
+  border-radius: 20px;
+}
